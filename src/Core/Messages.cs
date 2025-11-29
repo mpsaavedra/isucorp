@@ -17,8 +17,9 @@ public class Messages
 {
     public static class Core
     {
-        public static readonly Message MessageLocalizationError = Message.New("SG-00001", "Localization Error: Code- '{0}', Message - {|}");
-        public static readonly Message PlatformExceptionCodeNotSpecified  = Message.New("SG-00002", "Platform Exception Code- '{0}', Message - {|}");
+        public static readonly Message ErrorMessageLocalization = Message.New("SG-00001", "Localization Error: Code- '{0}', Message - {|}");
+        public static readonly Message ErrorPlatformExceptionCodeNotSpecified  = Message.New("SG-00002", "Platform Exception Code- '{0}', Message - {|}");
+        public static readonly Message ErrorQueryRepositoryCouldNotReturnQueryableForEntity = Message.New("SG-00003", "QueryRepository could not return a queryable instance for entity '{0}'");
     }
 
     /// <summary>
@@ -90,8 +91,8 @@ public class Messages
             catch (Exception e)
             {
                 Guards.Except.RegisterException<DetailedException>(new DetailedException(
-                    Core.MessageLocalizationError.Code,
-                    string.Format(Core.MessageLocalizationError.Details, _code)
+                    Core.ErrorMessageLocalization.Code,
+                    Core.ErrorMessageLocalization.Msg(_code, e.Message)
                 ));
                 return _message;
             }

@@ -16,10 +16,13 @@ namespace IsuCorp.Exceptions;
 /// </summary>
 public class DetailedException(string code, string message) : Exception(message)
 {
-    public DetailedException(string message) : this(Messages.Core.PlatformExceptionCodeNotSpecified.Code, message)
+    public DetailedException(string message) : this(Messages.Core.ErrorPlatformExceptionCodeNotSpecified.Code, message)
     { }
     
     public DetailedException(Messages.Message message) : this(message.Code, message.Msg()) { }
 
     public string Code { get; set; } = code;
+    
+    public static DetailedException From(Messages.Message message) =>
+        new DetailedException(message);
 }
