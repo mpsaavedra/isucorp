@@ -1,0 +1,97 @@
+<Project>
+    <PropertyGroup>
+        <CurrentVersion>1.0.0</CurrentVersion>
+        <CurrentVersionSuffix>alpha</CurrentVersionSuffix>
+        <GithubRepo>https://github.com/mpsaavedra/isucorp</GithubRepo>
+        <ProductName>Seagull</ProductName>
+        <CompanyName>IsuCorp</CompanyName>
+        <HeadDeveloper>Michel Perez Saavedra</HeadDeveloper>
+        <IsTestsProject>$(MSBuildProjectName.Contains('Tests'))</IsTestsProject>
+
+        <Title>$(ProductName)</Title>
+        <Product>$(CompanyName) - $(ProductName)</Product>
+        <Description>Seagull, is a package with Building blocks and other functionalities that we commonly use in software developer, this package allows to developer to speed up the development process</Description>
+        <IncludeBuildOutput>false</IncludeBuildOutput>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <LangVersion>preview</LangVersion>
+        <NeutralLanguage>en-US</NeutralLanguage>
+        <Authors>$(CompanyName). $(HeadDeveloper)</Authors>
+        <Owners>$(CompanyName). $(HeadDeveloper)</Owners>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Version>$(CurrentVersion)</Version>
+        <VersionSuffix>$(CurrentVersionSuffix)</VersionSuffix>
+        <AssemblyVersion>$(CurrentVersion)</AssemblyVersion>
+        <PackageVersion>$(CurrentVersion)</PackageVersion>
+        <AssemblyVersion>$(CurrentVersion)</AssemblyVersion>
+        <FileVersion>$(CurrentVersion)</FileVersion>
+        <Company>$(CompanyName)</Company>
+        <Copyright>Copyright © 2024-$([System.DateTime]::Now.Year) by $(CompanyName). All rights reserved.</Copyright>
+        <PackageId>$(AssemblyName)</PackageId>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <License>LICENSE.txt</License>
+        <PackageLicense>LICENSE.txt</PackageLicense>
+        <PackageLicenseUrl>LICENSE.txt</PackageLicenseUrl>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageIco>logo.png</PackageIco>
+        <PackageProjectUrl>$(GithubRepo)</PackageProjectUrl>
+        <RepositoryUrl>$(GithubRepo)</RepositoryUrl>
+        <PackageReleaseNotes>$(GithubRepo)tree/main/docs/RELEASE_NOTES.txt</PackageReleaseNotes>
+        <RepositoryType>git</RepositoryType>
+        <NoWarn>$(NoWarn);NU5104;NU1900;CS1591;CS8032;MSB4011; CS8619;CS8767;CS8604; CS8625; CS8602; CS8603; CS8618; CS8600; CS8601; CS8765; CS8669;NU5128;CS1574;CS1572;CS1573;CS0628;</NoWarn>
+        <PackageTags>sdk;library;isucorp;expresso;capuccino;moccaccino;net;dino;saas;erp;</PackageTags>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="$(SolutionDir)README.md" Pack="true" PackagePath="." />
+        <None Include="$(SolutionDir)LICENSE.txt" Pack="true" PackagePath="." />
+        <None Include="$(SolutionDir)docs/images/logo.png" Pack="true" PackagePath="." />
+    </ItemGroup>
+    
+    <Choose>
+        <When Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+            <PropertyGroup>
+                <MSBuildTreatWarningsAsErrors>false</MSBuildTreatWarningsAsErrors>
+                <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+            </PropertyGroup>
+        </When>
+        <When Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+            <PropertyGroup>
+                <MSBuildTreatWarningsAsErrors>true</MSBuildTreatWarningsAsErrors>
+                <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+            </PropertyGroup>
+        </When>
+        <Otherwise>
+            <PropertyGroup>
+                <ConfigurationErrorMsg>You need to configure variables [$(Configuration)] or [$(Platform)] in your solution.</ConfigurationErrorMsg>
+            </PropertyGroup>
+        </Otherwise>
+    </Choose>
+    <Choose>
+        <When Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+            <PropertyGroup>
+                <DebugSymbols>true</DebugSymbols>
+                <DebugType>full</DebugType>
+                <Optimize>false</Optimize>
+                <DefineConstants>DEBUG;TRACE</DefineConstants>
+            </PropertyGroup>
+        </When>
+        <When Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+            <PropertyGroup>
+                <DebugSymbols>false</DebugSymbols>
+                <DebugType>none</DebugType>
+                <Optimize>true</Optimize>
+                <DefineConstants>TRACE</DefineConstants>
+            </PropertyGroup>
+        </When>
+        <Otherwise>
+            <PropertyGroup>
+                <ConfigurationErrorMsg>You need to configure variables [$(Configuration)] or [$(Platform)] in your solution.</ConfigurationErrorMsg>
+            </PropertyGroup>
+        </Otherwise>
+    </Choose>
+    <PropertyGroup Condition=" '$(IsTestsProject)' == 'false' ">
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+</Project>
