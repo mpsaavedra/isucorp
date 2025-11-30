@@ -7,6 +7,9 @@
 //  </copyright>
 //  -----------------------------------------------------------------------
 
+using IsuCorp.Exceptions;
+using IsuCorp.Guards;
+
 namespace IsuCorp.Extensions;
 
 /// <summary>
@@ -14,6 +17,19 @@ namespace IsuCorp.Extensions;
 /// </summary>
 public static class GuardIsExtensions
 {
-    public static bool ToNullOrEmpty<TSource>(this TSource source) =>
+    public static bool ToIsNullOrEmpty<TSource>(this TSource source) =>
         Guards.Is.NullOrEmpty(source).HasError;
+
+    public static TSource ToIsNullOrEmptyThrow<TSource>(this TSource source, string? parameter = null)
+    {
+        try
+        {
+            return !source.ToIsNullOrEmpty() ? source : throw new ArgumentNullException(parameter);
+        }
+        catch (Exception e)
+        {
+            Guards.Except.RegisterException<Exception>(e);
+            throw;
+        }
+    }
 }

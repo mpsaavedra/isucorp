@@ -22,8 +22,7 @@
         <Version>$(CurrentVersion)</Version>
         <VersionSuffix>$(CurrentVersionSuffix)</VersionSuffix>
         <AssemblyVersion>$(CurrentVersion)</AssemblyVersion>
-        <PackageVersion>$(CurrentVersion)</PackageVersion>
-        <AssemblyVersion>$(CurrentVersion)</AssemblyVersion>
+        <PackageVersion>$(CurrentVersion)-$(CurrentVersionSuffix)</PackageVersion>
         <FileVersion>$(CurrentVersion)</FileVersion>
         <Company>$(CompanyName)</Company>
         <Copyright>Copyright © 2024-$([System.DateTime]::Now.Year) by $(CompanyName). All rights reserved.</Copyright>
@@ -41,6 +40,7 @@
         <NoWarn>$(NoWarn);NU5104;NU1900;CS1591;CS8032;MSB4011; CS8619;CS8767;CS8604; CS8625; CS8602; CS8603; CS8618; CS8600; CS8601; CS8765; CS8669;NU5128;CS1574;CS1572;CS1573;CS0628;</NoWarn>
         <PackageTags>sdk;library;isucorp;expresso;capuccino;moccaccino;net;dino;saas;erp;</PackageTags>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageOutputPath>$(SolutionDir)../packages/$(Version)</PackageOutputPath>
   </PropertyGroup>
 
     <ItemGroup>

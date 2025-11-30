@@ -13,6 +13,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		global.json = global.json
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logging", "Logging", "{592BFD43-8236-1486-20CA-62D2F7ED4E57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsuCorp.Logging.Serilog", "src\Logging.Serilog\IsuCorp.Logging.Serilog.csproj", "{7DB3CE14-1639-42A9-B1B5-1804FD7889CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,11 +39,24 @@ Global
 		{88940967-36B0-4C55-89E8-5259E5173019}.Release|x64.Build.0 = Release|Any CPU
 		{88940967-36B0-4C55-89E8-5259E5173019}.Release|x86.ActiveCfg = Release|Any CPU
 		{88940967-36B0-4C55-89E8-5259E5173019}.Release|x86.Build.0 = Release|Any CPU
+		{7DB3CE14-1639-42A9-B1B5-1804FD7889CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DB3CE14-1639-42A9-B1B5-1804FD7889CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DB3CE14-1639-42A9-B1B5-1804FD7889CD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7DB3CE14-1639-42A9-B1B5-1804FD7889CD}.Debug|x64.Build.0 = Debug|Any CPU
+		{7DB3CE14-1639-42A9-B1B5-1804FD7889CD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7DB3CE14-1639-42A9-B1B5-1804FD7889CD}.Debug|x86.Build.0 = Debug|Any CPU
+		{7DB3CE14-1639-42A9-B1B5-1804FD7889CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DB3CE14-1639-42A9-B1B5-1804FD7889CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DB3CE14-1639-42A9-B1B5-1804FD7889CD}.Release|x64.ActiveCfg = Release|Any CPU
+		{7DB3CE14-1639-42A9-B1B5-1804FD7889CD}.Release|x64.Build.0 = Release|Any CPU
+		{7DB3CE14-1639-42A9-B1B5-1804FD7889CD}.Release|x86.ActiveCfg = Release|Any CPU
+		{7DB3CE14-1639-42A9-B1B5-1804FD7889CD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{88940967-36B0-4C55-89E8-5259E5173019} = {FBF56CC3-7AE6-AD2D-3F14-7F97FD322CD6}
+		{7DB3CE14-1639-42A9-B1B5-1804FD7889CD} = {592BFD43-8236-1486-20CA-62D2F7ED4E57}
 	EndGlobalSection
 EndGlobal
