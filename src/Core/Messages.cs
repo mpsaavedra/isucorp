@@ -20,6 +20,7 @@ public class Messages
         public static readonly Message ErrorMessageLocalization = Message.New("SG-00001", "Localization Error: Code- '{0}', Message - {|}");
         public static readonly Message ErrorPlatformExceptionCodeNotSpecified  = Message.New("SG-00002", "Platform Exception Code- '{0}', Message - {|}");
         public static readonly Message ErrorQueryRepositoryCouldNotReturnQueryableForEntity = Message.New("SG-00003", "QueryRepository could not return a queryable instance for entity '{0}'");
+        public static readonly Message DbContextCouldNotBeCreated = Message.New("SG-00004", "DbContext could not be created");
     }
 
     /// <summary>

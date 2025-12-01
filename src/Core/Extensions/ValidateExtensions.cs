@@ -7,6 +7,7 @@
 //  </copyright>
 //  -----------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
 using IsuCorp.Exceptions;
 
 namespace IsuCorp.Extensions;
@@ -34,4 +35,7 @@ public static class ValidateExtensions
         Guards.Except.RegisterException<DetailedException>(ex, message);
         throw ex;
     }
+    
+    public static object? ToValidate(this object? source, Messages.Message msg) =>
+        ToValidate(source, msg.Code, msg.Msg());
 }

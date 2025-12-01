@@ -74,7 +74,7 @@ public interface IReadOperation<TKey, TUserKey, TEntity>
         bool disableTracking = true,
         bool ignoreQueryFilters = false,
         bool includeSoftDeleted = false,
-        Func<IQueryable<TResult>, Task<bool>>? action = null,
+        Func<IQueryable<TEntity>, Task<bool>>? action = null,
         CancellationToken cancellationToken = default);
     
     /// <summary>
@@ -83,8 +83,6 @@ public interface IReadOperation<TKey, TUserKey, TEntity>
     /// <param name="predicate">Optional filter expression to apply to the query</param>
     /// <param name="orderBy">Optional ordering function to sort the results before taking the first</param>
     /// <param name="include">Optional function to include related entities (eager loading)</param>
-    /// <param name="pageIndex">Zero-based page index for pagination (default: 0)</param>
-    /// <param name="pageSize">Number of items per page (default: 50)</param>
     /// <param name="disableTracking">If true, disables change tracking for better read performance (default: true)</param>
     /// <param name="ignoreQueryFilters">If true, ignores global query filters</param>
     /// <param name="includeSoftDeleted">If true, includes soft-deleted entities in the results</param>
@@ -95,7 +93,6 @@ public interface IReadOperation<TKey, TUserKey, TEntity>
         Expression<Func<TEntity, bool>>? predicate = null,
         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
         Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
-        int pageIndex = 0, int pageSize = 50,
         bool disableTracking = true,
         bool ignoreQueryFilters = false,
         bool includeSoftDeleted = false,
@@ -110,8 +107,6 @@ public interface IReadOperation<TKey, TUserKey, TEntity>
     /// <param name="selector">Expression to project the entity to the result type</param>
     /// <param name="orderBy">Optional ordering function to sort the results before taking the first</param>
     /// <param name="include">Optional function to include related entities (eager loading)</param>
-    /// <param name="pageIndex">Zero-based page index for pagination (default: 0)</param>
-    /// <param name="pageSize">Number of items per page (default: 50)</param>
     /// <param name="disableTracking">If true, disables change tracking for better read performance (default: true)</param>
     /// <param name="ignoreQueryFilters">If true, ignores global query filters</param>
     /// <param name="includeSoftDeleted">If true, includes soft-deleted entities in the results</param>
@@ -122,7 +117,6 @@ public interface IReadOperation<TKey, TUserKey, TEntity>
         Expression<Func<TEntity, TResult>>? selector = null,
         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
         Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
-        int pageIndex = 0, int pageSize = 50,
         bool disableTracking = true,
         bool ignoreQueryFilters = false,
         bool includeSoftDeleted = false,
