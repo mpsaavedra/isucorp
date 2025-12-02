@@ -7,6 +7,7 @@
 //  </copyright>
 //  -----------------------------------------------------------------------
 
+using IsuCorp.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace IsuCorp.Data;
@@ -19,13 +20,13 @@ public interface IUnitOfWork
 {
     /// <summary>
     /// Executes an operation within a database transaction.
-    /// The operation is executed atomically - either all changes are committed or all are rolled back.
+    /// The operation is executed atomically - either all changes are committed, or all are rolled back.
     /// </summary>
     /// <typeparam name="TResult">The type of result returned by the operation</typeparam>
     /// <param name="operation">The operation to execute within the transaction</param>
     /// <param name="cancellationToken">Cancellation token for the operation</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains the operation's result.</returns>
-    Task<TResult> ExecuteAsync<TResult>(
+    Task<TResult?> ExecuteAsync<TResult>(
         Func<Task<TResult>> func,
         CancellationToken cancellationToken = default);
     
@@ -36,4 +37,18 @@ public interface IUnitOfWork
     /// <returns></returns>
     IDbContextFactory<TContext> DbContextFactory<TContext>() 
         where TContext : DbContext, IDbContextBase;
+
+    /// <summary>
+    /// Gets a repository for the specified entity type.
+    /// The repository must be registered in the dependency injection container.
+    /// </summary>
+    /// <typeparam name="TEntity">The entity type that implements IBusinessEntity&lt;TKey, TUserKey&gt;</typeparam>
+    /// <typeparam name="TKey"></typeparam>
+    /// <typeparam name="TUserKey"></typeparam>
+    /// <typeparam name="TContext"></typeparam>
+    /// <returns>The repository instance for the specified entity type</returns>
+    IRepository<TKey, TUserKey, TEntity, TContext> Repository<TKey, TUserKey, TEntity, TContext>() 
+        where TEntity : class, IBusinessEntity<TKey, TUserKey>, new() 
+        where TContext : DbContext, IDbContextBase<TUserKey>;
+
 }

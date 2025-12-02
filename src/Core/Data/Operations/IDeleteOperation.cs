@@ -32,7 +32,7 @@ public interface IDeleteOperation<TKey, TUserKey, TEntity, out TContext>
     /// <param name="cancellationToken">Cancellation token for the operation</param>
     /// <returns>A task that represents the asynchronous operation. The task result indicates whether the deletion was successful.</returns>
     Task<bool> DeleteAsync(TKey id, bool softDeleted = true,
-        Func<TEntity, TContext, Task<bool>>? notification = null,
+        Func<TEntity, Task<bool>>? notification = null,
         CancellationToken cancellationToken = default);
     
     /// <summary>
@@ -43,7 +43,7 @@ public interface IDeleteOperation<TKey, TUserKey, TEntity, out TContext>
     /// <param name="notification">Optional action to perform after deleting (e.g., notifications, logging)</param>
     /// <param name="cancellationToken">Cancellation token for the operation</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains an array of tuples with each entity ID and whether it was successfully deleted.</returns>
-    Task<(TKey EntityId, bool Deleted)[]> DeleteRangeAsync(IEnumerable<TKey> ids, bool softDeleted = true,
-        Func<IEnumerable<(TKey EntityId, bool Updated)>, TContext, Task<bool>>? notification = null,
+    Task<List<(TKey EntityId, bool Deleted)>> DeleteRangeAsync(IEnumerable<TKey> ids, bool softDeleted = true,
+        Func<IEnumerable<(TKey EntityId, bool Updated)>, Task<bool>>? notification = null,
         CancellationToken cancellationToken = default);
 }

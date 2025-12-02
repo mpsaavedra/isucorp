@@ -30,7 +30,7 @@ public interface IUpdateOperation<TKey, TUserKey, TEntity, out TContext>
     /// <param name="notification">Optional action to perform after updating (e.g., notifications, logging)</param>
     /// <param name="cancellationToken">Cancellation token for the operation</param>
     /// <returns>A task that represents the asynchronous operation. The task result indicates whether the update was successful.</returns>
-    Task<bool> UpdateAsync(TEntity entity, Func<TEntity, TContext, Task<bool>>? notification = null,
+    Task<bool> UpdateAsync(TEntity entity, Func<TEntity, Task<bool>>? notification = null,
         CancellationToken cancellationToken = default);
 
     /// <summary>
@@ -40,8 +40,8 @@ public interface IUpdateOperation<TKey, TUserKey, TEntity, out TContext>
     /// <param name="notification">Optional action to perform after updating (e.g., notifications, logging)</param>
     /// <param name="cancellationToken">Cancellation token for the operation</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains an array of tuples with each entity ID and whether it was successfully updated.</returns>
-    Task<(TKey EntityId, bool Updated)[]> UpdateRangeAsync(IEnumerable<TEntity> entities,
-        Func<IEnumerable<(TKey EntityId, bool Updated)>, TContext, Task<bool>>? notification = null,
+    Task<List<(TKey EntityId, bool Updated)>> UpdateRangeAsync(IEnumerable<TEntity> entities,
+        Func<IEnumerable<(TKey EntityId, bool Updated)>, Task<bool>>? notification = null,
         CancellationToken cancellationToken = default);
     
 }

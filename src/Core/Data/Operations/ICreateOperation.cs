@@ -30,7 +30,7 @@ public interface ICreateOperation<TKey, TUserKey, TEntity, out TContext>
     /// <param name="notification">Optional action to perform after adding (e.g., notifications, logging)</param>
     /// <param name="cancellationToken">Cancellation token for the operation</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains the added entity with generated ID, or null if the operation failed.</returns>
-    Task<TEntity?> AddAsync(TEntity entity, Func<TEntity, TContext, Task<bool>>? notification = null,
+    Task<TEntity?> AddAsync(TEntity entity, Func<TEntity, Task<bool>>? notification = null,
         CancellationToken cancellationToken = default);
 
     /// <summary>
@@ -40,6 +40,7 @@ public interface ICreateOperation<TKey, TUserKey, TEntity, out TContext>
     /// <param name="cancellationToken">Cancellation token for the operation</param>
     /// <param name="entities">The entities to add</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains an array of tuples with each entity and whether it was successfully added.</returns>
-    Task<(TEntity Entity, bool Added)[]> AddRangeAsync(Func<TEntity[], TContext, Task<bool>>? notification = null,
+    Task<List<(TEntity Entity, bool Added)>> AddRangeAsync(
+        Func<List<(TEntity Entity, bool Added)>, Task<bool>>? notification = null,
         CancellationToken cancellationToken = default, params TEntity[] entities);
 }

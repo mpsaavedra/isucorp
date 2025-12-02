@@ -51,6 +51,6 @@ public interface ICommandRepository<TKey, TUserKey, TEntity, out TContext> :
     /// <param name="action">Optional action to perform after status change (e.g., notifications)</param>
     /// <param name="cancellationToken">Cancellation token for the operation</param>
     /// <returns>A task that represents the asynchronous operation. The task result indicates whether the status was changed successfully.</returns>
-    Task<bool>? ChangeStatusAsync(TKey id, bool status, Func<TEntity, TContext, Task<bool>>? action = null,
+    Task<bool>? ChangeStatusAsync(TKey id, bool status, Func<TEntity, Task<bool>>? action = null,
         CancellationToken cancellationToken = default);
 }

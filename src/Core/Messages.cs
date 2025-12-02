@@ -23,6 +23,13 @@ public class Messages
         public static readonly Message DbContextCouldNotBeCreated = Message.New("SG-00004", "DbContext could not be created");
     }
 
+    public static class Data
+    {
+        public static readonly Message EntityCouldNotBeFound = Message.New("SG-10001", "Entity '{0}' could not be found");
+        public static readonly Message CouldNotRetrieveUserId = Message.New("SG-10002", "Could not retrieve UserId");
+        public static readonly Message EntitiesSavedSuccessfully = Message.New("SG-10003", "Entities saved successfully");
+    }
+
     /// <summary>
     /// Localized message
     /// </summary>

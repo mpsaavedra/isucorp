@@ -15,22 +15,15 @@ using Microsoft.EntityFrameworkCore.Query;
 using ILogger = IsuCorp.Logging.ILogger;
 using ILoggerService = IsuCorp.Logging.ILoggerService;
 
-namespace IsuCorp.Data.Repositories.Implementations;
+// ReSharper disable once CheckNamespace
+namespace IsuCorp.Data.Repositories;
 
-public class QueryRepository<TKey, TUserKey, TEntity, TContext> :
+public class QueryRepository<TKey, TUserKey, TEntity, TContext>(IUnitOfWork unitOfWork, ILoggerService loggerService) :
     IQueryRepository<TKey, TUserKey, TEntity>
     where TEntity : class, IBusinessEntity<TKey, TUserKey>, new()
     where TContext : DbContext, IDbContextBase
 {
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly ILogger _logger;
-
-    public QueryRepository(IUnitOfWork unitOfWork, ILoggerService loggerService)
-    {
-        _unitOfWork = unitOfWork;
-        _logger = loggerService.CreateLogger<QueryRepository<TKey, TUserKey, TEntity, TContext>>();
-
-    }
+    private readonly ILogger _logger = loggerService.CreateLogger<QueryRepository<TKey, TUserKey, TEntity, TContext>>();
 
     public async Task<IQueryable<TEntity>> GetAsync(Expression<Func<TEntity, bool>>? predicate = null,
         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
@@ -42,7 +35,7 @@ public class QueryRepository<TKey, TUserKey, TEntity, TContext> :
         try
         {
             _logger.Debug("Retrieving entities that match the predicate");
-            var ctx = await _unitOfWork.DbContextFactory<TContext>().CreateDbContextAsync(cancellationToken);
+            var ctx = await unitOfWork.DbContextFactory<TContext>().CreateDbContextAsync(cancellationToken);
             ctx.ToValidate(Messages.Core.DbContextCouldNotBeCreated);
             return await ctx
                 .Set<TEntity>()
@@ -74,7 +67,7 @@ public class QueryRepository<TKey, TUserKey, TEntity, TContext> :
         try
         {
             _logger.Debug("Retrieving entities that match the predicate");
-            var ctx = await _unitOfWork.DbContextFactory<TContext>().CreateDbContextAsync(cancellationToken);
+            var ctx = await unitOfWork.DbContextFactory<TContext>().CreateDbContextAsync(cancellationToken);
             ctx.ToValidate(Messages.Core.DbContextCouldNotBeCreated);
             return await ctx
                 .Set<TEntity>()
@@ -104,7 +97,7 @@ public class QueryRepository<TKey, TUserKey, TEntity, TContext> :
         try
         {
             _logger.Debug("Retrieving first entity that matches the predicate");
-            var ctx = await _unitOfWork.DbContextFactory<TContext>().CreateDbContextAsync(cancellationToken);
+            var ctx = await unitOfWork.DbContextFactory<TContext>().CreateDbContextAsync(cancellationToken);
             ctx.ToValidate(Messages.Core.DbContextCouldNotBeCreated);
             return await ctx
                 .Set<TEntity>()
@@ -135,7 +128,7 @@ public class QueryRepository<TKey, TUserKey, TEntity, TContext> :
         try
         {
             _logger.Debug("Retrieving first entity that matches the predicate");
-            var ctx = await _unitOfWork.DbContextFactory<TContext>().CreateDbContextAsync(cancellationToken);
+            var ctx = await unitOfWork.DbContextFactory<TContext>().CreateDbContextAsync(cancellationToken);
             ctx.ToValidate(Messages.Core.DbContextCouldNotBeCreated);
             return await ctx
                 .Set<TEntity>()
@@ -163,7 +156,7 @@ public class QueryRepository<TKey, TUserKey, TEntity, TContext> :
     {
         try
         {
-            var ctx = await _unitOfWork.DbContextFactory<TContext>().CreateDbContextAsync(cancellationToken);
+            var ctx = await unitOfWork.DbContextFactory<TContext>().CreateDbContextAsync(cancellationToken);
             ctx.ToValidate(Messages.Core.DbContextCouldNotBeCreated);
             return await ctx.Set<TEntity>()
                 .ToQueryable()
@@ -185,7 +178,7 @@ public class QueryRepository<TKey, TUserKey, TEntity, TContext> :
     {
         try
         {
-            var ctx = await _unitOfWork.DbContextFactory<TContext>().CreateDbContextAsync(cancellationToken);
+            var ctx = await unitOfWork.DbContextFactory<TContext>().CreateDbContextAsync(cancellationToken);
             ctx.ToValidate(Messages.Core.DbContextCouldNotBeCreated);
             return await ctx.Set<TEntity>()
                 .ToQueryable()
@@ -207,7 +200,7 @@ public class QueryRepository<TKey, TUserKey, TEntity, TContext> :
         {
             try
             {
-                var ctx = _unitOfWork.DbContextFactory<TContext>().CreateDbContext();
+                var ctx = unitOfWork.DbContextFactory<TContext>().CreateDbContext();
                 var query = ctx.Set<TEntity>();
                 return query;
             }
@@ -225,7 +218,7 @@ public class QueryRepository<TKey, TUserKey, TEntity, TContext> :
     {
         try
         {
-            var ctx = _unitOfWork.DbContextFactory<TContext>().CreateDbContext();
+            var ctx = unitOfWork.DbContextFactory<TContext>().CreateDbContext();
             var query = ctx.Set<T>();
             return query;
         }
